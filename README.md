@@ -40,3 +40,7 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 
 ## Description
 Allows a user to create and publish their own blog posts. 
+
+## Heroku Deployed Link
+https://tech-blog-maryam-uta.herokuapp.com/
+
