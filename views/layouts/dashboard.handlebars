@@ -30,6 +30,26 @@
   {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
+
+<container class="newAppForm">
+<form>
+  <header>Create New Post</header>
+  <div class="">
+    <label for="inputCompany" class="col-form-label">Title: </label>
+    <div class="">
+      <input type="company" class="form-control" id="inputTitle">
+    </div>
+  </div>
+  <div class="">
+    <label for="jobURL" class="col-form-label">Content </label>
+    <div class="">
+      <input type="jobURL" class="form-control" id="inputContent">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</container>
+  <button type="submit" class="btn btn-primary">+ New Post</button>
 </body>
 
 </html>

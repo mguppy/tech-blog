@@ -25,13 +25,11 @@ Post.init(
             key: 'id',
             },
         },
-        post_date: {
-            type: DataTypes.DATE,
-        },
     },
     {
       sequelize,
       freezeTableName: true,
+      timestamps: true,
       underscored: true,
       modelName: 'post',
     }
