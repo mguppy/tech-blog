@@ -16,12 +16,12 @@ const newPostFormHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/');
+            document.location.replace('/dashboard');
         } else {
-            alert('Failed to add new application.');
+            alert('Failed to add new post.');
         }
     };
 };
     document
-        .querySelector('.newAppForm')
+        .querySelector('.newPostForm')
         .addEventListener('submit', newPostFormHandler);

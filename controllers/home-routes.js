@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Post } = require('../models');
 // Import the custom middleware
-// const withAuth = require('../utils/auth');
+const withAuth = require('../utils/auth');
 
 // GET all posts for homepage
 router.get('/', async (req, res) => {
@@ -29,33 +29,28 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET one gallery
-// Use the custom middleware before allowing the user to access the gallery
-// router.get('/post/:id', withAuth, async (req, res) => {
-//   try {
-//     const dbPostData = await Post.findByPk(req.params.id, {
-//       // include: [
-//       //   {
-//       //     model: Painting,
-//       //     attributes: [
-//       //       'id',
-//       //       'title',
-//       //       'artist',
-//       //       'exhibition_date',
-//       //       'filename',
-//       //       'description',
-//       //     ],
-//       //   },
-//       // ],
-//     });
+router.post("/", withAuth, async (req, res) => {
+  // create a new application
+  console.log("post route")
+  try {
+      const dbPostData = await Post.create({
+          title: req.body.title,
+          content: req.body.content,
+          user_id: req.session.user,
+      });
 
-//     const posts = dbPostData.get({ plain: true });
-//     res.render('post', { post, loggedIn: req.session.loggedIn });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
+      console.log(dbPostData.dataValues.id);
+
+      req.session.save(() => {
+          req.session.applicationId = dbPostData.dataValues.id;
+
+          // if the application is successfully created, the new response will be returned as json
+          res.status(200).json(dbPostData);
+      });
+  } catch (err) {
+      res.status(400).json(err);
+  }
+});
 
 //Login route
 router.get('/login', (req, res) => {
@@ -76,6 +71,14 @@ router.get("/signup", (req, res) => {
   }
   // Otherwise, render the 'signup' template
   res.render("signup");
+});
+
+// New blog post route
+router.get("/newPost", (req, res) => {
+  res.render("newPost", {
+    loggedIn: req.session.loggedIn,
+    user_id: req.session.user,
+  });
 });
 
 module.exports = router;
