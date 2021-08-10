@@ -52,6 +52,32 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
+router.put(`/addComment/:id`, withAuth, async (req, res) => {
+  // Update a post by id
+  console.log(req.params.id);
+  console.log(req.body.comment);
+
+  try {
+    const dbPostData = await Post.update(
+      {
+        comment: req.body.comment,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
+    req.session.save(() => {
+      // if the application is successfully updated, the response will be returned as json
+      res.status(200).json(dbPostData);
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //Login route
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
@@ -79,6 +105,29 @@ router.get("/newPost", (req, res) => {
     loggedIn: req.session.loggedIn,
     user_id: req.session.user,
   });
+});
+
+// Edit app route
+router.get("/editPost/:id", async (req, res) => {
+  try {
+    const dbPostData = await Post.findByPk(req.params.id);
+    // console.log(dbApplicationData);
+
+    const post = dbPostData.get({ plain: true });
+    console.log(post);
+
+    // req.session.save(() => {
+    //   req.session.applicationId = applicationData.dataValues.id;
+
+    res.render("editPost", {
+      post,
+      loggedIn: req.session.loggedIn,
+      user_id: req.session.user,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

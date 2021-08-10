@@ -25,6 +25,9 @@ Post.init(
             key: 'id',
             },
         },
+        comment: {
+            type: DataTypes.STRING,
+        },
     },
     {
       sequelize,
