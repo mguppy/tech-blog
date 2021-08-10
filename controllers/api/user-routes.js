@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User } = require('../../models');
 
 // CREATE new user
-router.post('/', async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const dbUserData = await User.create({
       username: req.body.username,
@@ -10,9 +10,13 @@ router.post('/', async (req, res) => {
       password: req.body.password,
     });
 
+    console.log(dbUserData);
+
+    const userId = dbUserData.dataValues.id;
+
     req.session.save(() => {
       req.session.loggedIn = true;
-
+      req.session.user = userId;
       res.status(200).json(dbUserData);
     });
   } catch (err) {
@@ -22,28 +26,28 @@ router.post('/', async (req, res) => {
 });
 
 // GET all users
-router.get('/', async (req, res) => {
-  try {
-    const dbUserData = await User.findAll({
+// router.get('/', async (req, res) => {
+//   try {
+//     const dbUserData = await User.findAll({
 
-    });
+//     });
 
-    const users = dbUserData.map((user) => 
-    user.get({ plain: true})
-    );
+//     const users = dbUserData.map((user) => 
+//     user.get({ plain: true})
+//     );
 
-    res.render('homepage', {
-      posts,
-      loggedIn: req.session.loggedIn,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
+//     res.render('homepage', {
+//       posts,
+//       loggedIn: req.session.loggedIn,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json(err);
+//   }
+// });
 
 // Login
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const dbUserData = await User.findOne({
       where: {
@@ -58,6 +62,8 @@ router.post('/login', async (req, res) => {
       return;
     }
 
+    const userId = dbUserData.dataValues.id;
+
     const validPassword = await dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
@@ -69,6 +75,8 @@ router.post('/login', async (req, res) => {
 
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.user = userId;
+      console.log(req.session.user);
 
       res
         .status(200)
