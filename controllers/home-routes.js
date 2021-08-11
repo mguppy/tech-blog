@@ -78,6 +78,26 @@ router.put(`/editPost/:id`, withAuth, async (req, res) => {
   }
 });
 
+router.delete("/dashboard/:id", withAuth, async (req, res) => {
+  // delete a post by its `id` value
+  try {
+    const dbPostData = await Post.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!dbPostData) {
+      res.status(404).json({ message: "No post found with this id!" });
+      return;
+    }
+
+    res.status(200).json(dbPostData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //Login route
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
