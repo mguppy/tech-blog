@@ -4,7 +4,7 @@
     <p class="card-text">{{post.content}}</p>
   </div>
   <div class="card-footer text-muted">
-    Posted on {{ post.createdAt}}
+    Posted on {{ format_date post.createdAt}}
     <container class="editPostForm">
 <header>
     <h1>Add Comment</h1>

@@ -3,11 +3,11 @@
   <h5 class="card-header">{{title}}</h5>
   <div class="card-body">
     <p class="card-text">{{content}}</p>
+    <p class="card-text">Comments: {{comment}}</p>
     <button onclick = "location.href = '/editPost/{{id}}';" type="add" value = {{id}} class="btn btn-primary addComment"><i class="fas fa-edit"></i> Add/Edit Comment</button>
   </div>
   <div class="card-footer text-muted">
-    Posted on {{ createdAt}}
-    {{comment}}
+    Posted on {{ format_date createdAt}}
   </div>
 </a>
 </div>
