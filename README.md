@@ -44,7 +44,8 @@ Allows a user to create and publish their own blog posts as well as make comment
 ## Heroku Deployed Link
 https://tech-blog-maryam-uta.herokuapp.com/
 
-Github link - https://github.com/mguppy/tech-blog
+## GitHub Link
+https://github.com/mguppy/tech-blog
 
 ![ScreenShot](Screenshot.png)
 
