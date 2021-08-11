@@ -1,32 +1,29 @@
-{{!-- <div class="card">
-<a href="/post/{{id}}"></a>
-  <h5 class="card-header">{{title}}</h5>
+<div class="card">
+  <h5 class="card-header">{{post.title}}</h5>
   <div class="card-body">
-    <p class="card-text">{{content}}</p>
-    <button type="add" value = {{id}} class="btn btn-primary addComment"><i class="fas fa-edit"></i> + Comment</button>
+    <p class="card-text">{{post.content}}</p>
   </div>
   <div class="card-footer text-muted">
-    Posted on {{ createdAt}}
-    {{comment}}
-  </div>
-</a>
-</div> --}}
-
-<container class="editPostForm">
+    Posted on {{ post.createdAt}}
+    <container class="editPostForm">
 <header>
     <h1>Add Comment</h1>
     <form class="editPostForm">
     <div class="container editPostForm">
   <div class="passed">
-    <label for="passed" class="col-form-label">Passed: </label>
+    <label for="passed" class="col-form-label"></label>
     <div class="">
-      <input type="input" class="form-control" id="passed" value={{post.comment}}>
+      <input type="input" class="form-control" id="comment" value={{post.comment}}>
     </div>
   </div>
   <br>
-  {{!-- <button onclick = "location.href = '/editPost';" type="submit" class="btn btn-primary editSubmit" id="submitPost" value={{post.id}}>Submit</button> --}}
-  {{!-- <a href="/editPost">+ Comment</a> --}}
+  <button type="submit" class="btn btn-primary submit editSubmit" value={{post.id}}>Submit</button>
   </form>
   </container>
+  </div>
+</a>
+</div>
+
+
 
 <script src="/js/editPost.js"></script>

@@ -2,29 +2,29 @@ const handlePostEdit = async (event) => {
     event.preventDefault();
 
     const postId = document.querySelector(".submit").value;
-    console.log(applicationId);
+    console.log(postId);
 
-    const application_status = document.querySelector("#statusSel").value;
+    const comment = document.querySelector("#comment").value;
 
-    console.log(application_status);
+    console.log(comment);
 
-    if (application_status) {
-        const responseApp = await fetch(`/addComment/${applicationId}`, {
+    if (comment) {
+        const responseApp = await fetch(`/editPost/${postId}`, {
             method: "PUT",
             body: JSON.stringify({
-                application_status: application_status,
+                comment: comment,
             }),
             headers: { "Content-Type": "application/json" },
         });
 
         if (responseApp.ok) {
-            document.location.replace("/");
+            document.location.replace("/dashboard");
         } else {
-            alert("Failed to edit application status.");
+            alert("Failed to edit or add comment.");
         }
     }
 };
 
 document
-    .querySelector(".editAppForm")
-    .addEventListener("submit", handleAppEdit);
+    .querySelector(".editPostForm")
+    .addEventListener("submit", handlePostEdit);

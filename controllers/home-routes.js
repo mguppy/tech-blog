@@ -52,7 +52,7 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
-router.put(`/addComment/:id`, withAuth, async (req, res) => {
+router.put(`/editPost/:id`, withAuth, async (req, res) => {
   // Update a post by id
   console.log(req.params.id);
   console.log(req.body.comment);
@@ -108,22 +108,27 @@ router.get("/newPost", (req, res) => {
 });
 
 // Edit app route
-router.get("/editPost/:id", async (req, res) => {
+router.get("/editPost/:id", withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.findByPk(req.params.id);
     // console.log(dbApplicationData);
 
-    const post = dbPostData.get({ plain: true });
-    console.log(post);
-
-    // req.session.save(() => {
-    //   req.session.applicationId = applicationData.dataValues.id;
-
-    res.render("editPost", {
-      post,
-      loggedIn: req.session.loggedIn,
-      user_id: req.session.user,
-    });
+    if(dbPostData) {
+      const post = dbPostData.get({ plain: true });
+      console.log(post);
+  
+      // req.session.save(() => {
+      //   req.session.applicationId = applicationData.dataValues.id;
+  
+      res.render("editPost", {
+        post,
+        loggedIn: req.session.loggedIn,
+        user_id: req.session.user,
+      });
+    }
+    else {
+      res.status(404).end();
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
