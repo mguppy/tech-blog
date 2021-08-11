@@ -3,7 +3,7 @@
   <h5 class="card-header">{{title}}</h5>
   <div class="card-body">
     <p class="card-text">{{content}}</p>
-    <button type="add" value = {{id}} class="btn btn-primary addComment"><i class="fas fa-edit"></i> + Comment</button>
+    <button onclick = "location.href = '/editPost/:id';" type="add" value = {{id}} class="btn btn-primary addComment"><i class="fas fa-edit"></i> + Comment</button>
   </div>
   <div class="card-footer text-muted">
     Posted on {{ createdAt}}
@@ -11,3 +11,5 @@
   </div>
 </a>
 </div>
+
+<script src="/js/addComment.js"></script>

@@ -11,3 +11,22 @@
   </div>
 </a>
 </div> --}}
+
+<container class="editPostForm">
+<header>
+    <h1>Add Comment</h1>
+    <form class="editPostForm">
+    <div class="container editPostForm">
+  <div class="passed">
+    <label for="passed" class="col-form-label">Passed: </label>
+    <div class="">
+      <input type="input" class="form-control" id="passed" value={{post.comment}}>
+    </div>
+  </div>
+  <br>
+  {{!-- <button onclick = "location.href = '/editPost';" type="submit" class="btn btn-primary editSubmit" id="submitPost" value={{post.id}}>Submit</button> --}}
+  {{!-- <a href="/editPost">+ Comment</a> --}}
+  </form>
+  </container>
+
+<script src="/js/editPost.js"></script>
